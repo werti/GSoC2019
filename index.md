@@ -1,37 +1,34 @@
-## Welcome to GitHub Pages
+## Project description
 
-You can use the [editor on GitHub](https://github.com/werti/GSoC2019/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+GStreamer is a framework for building multimedia applications. This framework allows you to create various applications. GStreamer has a plug-in architecture and has a very large set of plug-ins that can solve 99% of the needs of all multimedia developers. But until recently, GStreamer had only one metric for video quality --- DSSIM. The goal of my GSoC project was to create VMAF plugin for GStreamer.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+VMAF is a new full-reference perceptual video quality metric developed by Netflix, which has a high correlation with subjective quality scores. It is open-source and ML-based metric, and it's base model is constantly updating. The developers add new features to each new version: such as 4K support, 95% confidence intervals, versions for measuring quality of displaying on phones and [other viewing options](https://github.com/Netflix/vmaf/releases/tag/v1.3.7).
 
-### Markdown
+## Short plugin description
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The new iqa-vmaf plugin has been developed for GStreamer. It is based on GstVideoAggregator and supports all libvmaf options. It sends frame-by-frame results to pipeline via messages after EOS.
 
-```markdown
-Syntax highlighted code block
+Additionally, in GStreamer, using the iqa-vmaf plugin, it is possible to calculate PSNR, SSIM, and MS-SSIM, since libvmaf can calculate them when calculating VMAF. Thus, the number of video quality metrics in GStreamer increased from one to five.
 
-# Header 1
-## Header 2
-### Header 3
+## Resources
 
-- Bulleted
-- List
+### Repositories and description of writed code
+* [gst-build-bad repository](https://gitlab.freedesktop.org/szve/gst-plugins-bad/):
+  Old iqa plugin with DSSIM was renamed to iqa-dssim plugin and iqa-vmaf plugin was added. The iqa-vmaf plugin consists of this files:
+  * [iqa-vmaf.h](https://gitlab.freedesktop.org/szve/gst-plugins-bad/blob/master/ext/iqa/iqa-vmaf.h)
+  * [iqa-vmaf.c](https://gitlab.freedesktop.org/szve/gst-plugins-bad/blob/master/ext/iqa/iqa-vmaf.c)
+  * [libvmaf_wrapper.h](https://gitlab.freedesktop.org/szve/gst-plugins-bad/blob/master/ext/iqa/libvmaf_wrapper.h)
+  * [libvmaf_wrapper.cpp](https://gitlab.freedesktop.org/szve/gst-plugins-bad/blob/master/ext/iqa/libvmaf_wrapper.cpp)
+  * [iqaplugin.c](https://gitlab.freedesktop.org/szve/gst-plugins-bad/blob/master/ext/iqa/iqaplugin.c)
+* [gst-build repository](https://gitlab.freedesktop.org/szve/gst-build):
+  The gst-build is auxiliary repository for GStreamer compilation. It use Meson build system and I created [wrapper](https://gitlab.freedesktop.org/szve/gst-build/blob/master/subprojects/vmaf.wrap) for VMAF submodule in it.
+* [VMAF repository](https://github.com/werti/vmaf/tree/v1.3.14-gstreamer):
+  To integrate VMAF into gst-build, I wrote a [meson configuration file](https://github.com/werti/vmaf/blob/v1.3.14-gstreamer/meson.build) for the VMAF project. I also made a [small patch](https://github.com/werti/vmaf/commit/b7ebb73cc6b432b0f44ef7d1381b082d4cbdf7e3#diff-fa18e21ed0ed7b3f769ceab3d86c7e3a) necessary for correct work with exceptions from libvmaf.
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/werti/GSoC2019/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+### Merge requests
+ * Merge Request to [gst-plugins-bad](https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/merge_requests/520):
+   Status (??-08-19) --
+ * Merge Request to [gst-build](https://gitlab.freedesktop.org/gstreamer/gst-build/merge_requests/68):
+   Status (??-08-19) --
+ * Merge Request to [vmaf](https://github.com/Netflix/vmaf/pull/354):
+   Status (??-08-19) --
