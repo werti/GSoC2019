@@ -41,8 +41,8 @@ Thus, the number of video quality metrics in GStreamer increased five times :).
 
 ### Merge requests
  * Merge Request to [gst-plugins-bad](https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/merge_requests/520):
-   Status (??-08-19) --
+   Status (26-08-19) -- on review
  * Merge Request to [gst-build](https://gitlab.freedesktop.org/gstreamer/gst-build/merge_requests/68):
-   Status (??-08-19) --
+   Status (26-08-19) -- on review
  * Merge Request to [vmaf](https://github.com/Netflix/vmaf/pull/354):
-   Status (??-08-19) --
+   Status (26-08-19) -- on review
